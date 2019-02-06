@@ -25,13 +25,21 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
 
+    std::cout << "Parameters count: " << std::to_string(argc) << std::endl;
+    if (argc != 2)
+    {
+        std::cout << "You must specify just the name/folder of the project" << std::endl;
+        return 0;
+    }
+
     vector<std::string> scenarioNames;
     int size = 4;
     vector<std::string> wrongSerieNames = {"ETP.srs", "PRECIPITATION.srs", "RUNOFF_IN_NAT.srs", "RESOP_DEMAND.srs"};
     vector<std::string> correctSerieNames = {"ETP.007.srs", "PRECIPITATION.007.srs", "RUNOFF_IN_NAT.005.srs", "RESOP_DEMAND.005.srs"};
     vector<std::string> unitOfSerie = {"# Unidade: mm", "# Unidade: mm", "# Unidade: m³/s", "# Unidade: m³/s"};
 
-    std::string url = "C:/SigaProjectsFile/leste";
+    //std::string url = "C:/SigaProjectsFile/leste";
+    std::string url = std::string(argv[1]);
     std::string url9004 = url + "/9004/";
 
     //Abre arquivo url9004+RESOP_SCENARIOS_NAMES.vctr
@@ -126,5 +134,6 @@ int main(int argc, char *argv[])
         }
     }
 
-    return a.exec();
+    //return a.exec();
+    std::cout << "Finished the job" << std::endl;
 }

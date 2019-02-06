@@ -4,6 +4,7 @@
 #include <experimental/filesystem>
 
 #include<stdio.h>
+#include <fstream>
 
 using namespace std;
 namespace fs = std::experimental::filesystem::v1;
@@ -93,14 +94,40 @@ int main(int argc, char *argv[])
                         //if (endsWith(filename, "RESOP_DEMAND.srs"))
                         if (endsWith(filename, wrongSerieNames[index]))
                         {
-                            std::cout << filename << std::endl;
+                            /*std::cout << filename << std::endl;
                             filename_2 = filename;
                             //rep(filename, "RESOP_DEMAND.srs", "RESOP_DEMAND.005.srs");
                             rep(filename, wrongSerieNames[index], correctSerieNames[index]);
                             std::cout << filename << std::endl;
-                            std::rename(filename_2.c_str(), filename.c_str());
+                            std::rename(filename_2.c_str(), (filename+"temp").c_str());*/
 
-                            int a = 0;
+                            filename_2 = filename;
+                            rep(filename, wrongSerieNames[index], correctSerieNames[index]);
+
+                            int linePos = 0;
+                            //novo nome: filename
+                            std::ifstream infile(filename_2);
+                            std::string line;
+                            std::string fileContent;
+                            while (std::getline(infile, line))
+                            {
+                                if (linePos != 1)
+                                    fileContent += line+"\n";
+                                else
+                                    fileContent += unitOfSerie[index]+"\n";
+                                //std::cout << line << std::endl;
+                                linePos++;
+                            }
+                            infile.close();
+                            //Deve salvar o conteudo como um arquivo filename
+                            ofstream newFile;
+                            newFile.open (filename);
+                            newFile << fileContent;
+                            newFile.flush();
+                            newFile.close();
+
+                            //Deletar o arquivo
+                            std::remove(filename_2.c_str());
                         }
                     }
                 }

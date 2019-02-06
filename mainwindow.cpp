@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
     populateCheckBox();
     populateNodeCheckBox("Demand");
     populateSelectSerieErrorCheckBox("Error");
-    this->showMaximized();
+    //this->showMaximized();
 }
 
 MainWindow::~MainWindow()

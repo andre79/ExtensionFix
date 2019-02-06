@@ -2,9 +2,18 @@
 #include <iostream>
 #include <QApplication>
 #include <experimental/filesystem>
+
+#include<stdio.h>
+
 using namespace std;
 namespace fs = std::experimental::filesystem::v1;
 #include <fstream>      // std::ifstream
+
+void rep(string &initialString, string whatToReplace, string withWhat){
+    size_t rpos=initialString.find(whatToReplace);
+    if (rpos!=string::npos)
+        initialString.replace(initialString.begin()+rpos, initialString.begin()+rpos+whatToReplace.length(), withWhat);
+}
 
 /*bool isNumber(const std::string &str)
 {
@@ -54,31 +63,46 @@ int main(int argc, char *argv[])
 
         if (!fs::is_directory(elementFolder.path())) continue;
 
-        std::cout << elementFolder.path() << std::endl;
+        //std::cout << elementFolder.path() << std::endl;
 
         //Para cada scenario
         for (const auto & scenarioFolder : fs::directory_iterator(elementFolder.path()))
         {
-            std::cout << scenarioFolder.path() << std::endl;
+           // std::cout << scenarioFolder.path() << std::endl;
 
             //Para cada modelo
             for (const auto & modelFolder : fs::directory_iterator(scenarioFolder.path()))
             {
-                std::cout << modelFolder.path() << std::endl;
+                //std::cout << modelFolder.path() << std::endl;
 
                 std::string filename;
+                std::string filename_2;
                 for (const auto & file : fs::directory_iterator(modelFolder.path()))
                 {
                     //Se o arquivo termina com .srs
                     filename = file.path().string();
-                    if (endsWith(filename, ".srs")) std::cout << filename << std::endl;
+                    //if (endsWith(filename, ".srs")) std::cout << filename << std::endl;
+
+                    if (endsWith(filename, "RESOP_DEMAND.srs"))
+                    {
+                        std::cout << filename << std::endl;
+                        filename_2 = filename;
+                        rep(filename, "RESOP_DEMAND.srs", "RESOP_DEMAND.005.srs");
+                        std::cout << filename << std::endl;
+                        std::rename(filename_2.c_str(), filename.c_str());
+
+                        int a = 0;
+
+                    }
+
+
+
                 }
             }
 
         }
 
     }
-
 
     return a.exec();
 }

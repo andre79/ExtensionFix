@@ -52,8 +52,6 @@ int main(int argc, char *argv[])
     //Para cada elemento
     for (const auto & elementFolder : fs::directory_iterator(url9004))
     {
-        //std::cout << elementFolder.path() << std::endl;
-
         //Se for o nome de um cenário, deve pular
         bool cont = true;
         for (auto &scen: scenarioNames)
@@ -68,38 +66,23 @@ int main(int argc, char *argv[])
 
         if (!fs::is_directory(elementFolder.path())) continue;
 
-        //std::cout << elementFolder.path() << std::endl;
-
         //Para cada scenario
         for (const auto & scenarioFolder : fs::directory_iterator(elementFolder.path()))
         {
-           // std::cout << scenarioFolder.path() << std::endl;
-
             //Para cada modelo
             for (const auto & modelFolder : fs::directory_iterator(scenarioFolder.path()))
             {
-                //std::cout << modelFolder.path() << std::endl;
-
                 std::string filename;
                 std::string filename_2;
                 for (const auto & file : fs::directory_iterator(modelFolder.path()))
                 {
                     //Se o arquivo termina com .srs
                     filename = file.path().string();
-                    //if (endsWith(filename, ".srs")) std::cout << filename << std::endl;
 
                     for (int index = 0; index < size; ++index)
                     {
-                        //if (endsWith(filename, "RESOP_DEMAND.srs"))
                         if (endsWith(filename, wrongSerieNames[index]))
                         {
-                            /*std::cout << filename << std::endl;
-                            filename_2 = filename;
-                            //rep(filename, "RESOP_DEMAND.srs", "RESOP_DEMAND.005.srs");
-                            rep(filename, wrongSerieNames[index], correctSerieNames[index]);
-                            std::cout << filename << std::endl;
-                            std::rename(filename_2.c_str(), (filename+"temp").c_str());*/
-
                             filename_2 = filename;
                             rep(filename, wrongSerieNames[index], correctSerieNames[index]);
 

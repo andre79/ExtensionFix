@@ -34,6 +34,11 @@ int main(int argc, char *argv[])
 
     vector<std::string> scenarioNames;
 
+    int size = 4;
+    vector<std::string> wrongSerieNames = {"ETP.srs", "PRECIPITATION.srs", "RUNOFF_IN_NAT.srs", "RESOP_DEMAND.srs"};
+    vector<std::string> correctSerieNames = {"ETP.007.srs", "PRECIPITATION.007.srs", "RUNOFF_IN_NAT.005.srs", "RESOP_DEMAND.005.srs"};
+    vector<std::string> unitOfSerie = {"# Unidade: mm", "# Unidade: mm", "# Unidade: m³/s", "# Unidade: m³/s"};
+
     std::string url = "C:/SigaProjectsFile/leste";
     std::string url9004 = url + "/9004/";
 
@@ -83,25 +88,24 @@ int main(int argc, char *argv[])
                     filename = file.path().string();
                     //if (endsWith(filename, ".srs")) std::cout << filename << std::endl;
 
-                    if (endsWith(filename, "RESOP_DEMAND.srs"))
+                    for (int index = 0; index < size; ++index)
                     {
-                        std::cout << filename << std::endl;
-                        filename_2 = filename;
-                        rep(filename, "RESOP_DEMAND.srs", "RESOP_DEMAND.005.srs");
-                        std::cout << filename << std::endl;
-                        std::rename(filename_2.c_str(), filename.c_str());
+                        //if (endsWith(filename, "RESOP_DEMAND.srs"))
+                        if (endsWith(filename, wrongSerieNames[index]))
+                        {
+                            std::cout << filename << std::endl;
+                            filename_2 = filename;
+                            //rep(filename, "RESOP_DEMAND.srs", "RESOP_DEMAND.005.srs");
+                            rep(filename, wrongSerieNames[index], correctSerieNames[index]);
+                            std::cout << filename << std::endl;
+                            std::rename(filename_2.c_str(), filename.c_str());
 
-                        int a = 0;
-
+                            int a = 0;
+                        }
                     }
-
-
-
                 }
             }
-
         }
-
     }
 
     return a.exec();

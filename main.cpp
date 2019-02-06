@@ -6,9 +6,15 @@ using namespace std;
 namespace fs = std::experimental::filesystem::v1;
 #include <fstream>      // std::ifstream
 
-bool isNumber(const std::string &str)
+/*bool isNumber(const std::string &str)
 {
     return !str.empty() && str.find_first_not_of("0123456789") == string::npos;
+}*/
+
+bool endsWith(const string& a, const string& b)
+{
+    if (b.size() > a.size()) return false;
+    return std::equal(a.begin() + a.size() - b.size(), a.end(), b.begin());
 }
 
 int main(int argc, char *argv[])
@@ -59,6 +65,14 @@ int main(int argc, char *argv[])
             for (const auto & modelFolder : fs::directory_iterator(scenarioFolder.path()))
             {
                 std::cout << modelFolder.path() << std::endl;
+
+                std::string filename;
+                for (const auto & file : fs::directory_iterator(modelFolder.path()))
+                {
+                    //Se o arquivo termina com .srs
+                    filename = file.path().string();
+                    if (endsWith(filename, ".srs")) std::cout << filename << std::endl;
+                }
             }
 
         }

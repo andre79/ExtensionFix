@@ -70,7 +70,6 @@ void  MainWindow::populateSelectSerieErrorCheckBox(QString nodeType)
     }
 }
 
-
 void MainWindow::on_pushButton_clicked()
 {
     int a = 1;

@@ -108,12 +108,12 @@
             </attribute>
             <layout class="QHBoxLayout" name="horizontalLayout_7">
              <item>
-              <widget class="QListWidget" name="listWidget"/>
+              <widget class="QListWidget" name="listWidgetDemand"/>
              </item>
              <item>
               <layout class="QVBoxLayout" name="verticalLayout_5">
                <item>
-                <widget class="QListView" name="listView"/>
+                <widget class="QListWidget" name="listWidgetDemandError"/>
                </item>
                <item>
                 <spacer name="verticalSpacer">

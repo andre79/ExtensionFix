@@ -8,9 +8,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     populateCheckBox();
-
+    populateNodeCheckBox("Demand");
+    populateSelectSerieErrorCheckBox("Error");
     this->showMaximized();
-
 }
 
 MainWindow::~MainWindow()
@@ -18,7 +18,8 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void  MainWindow::populateCheckBox(){
+void  MainWindow::populateCheckBox()
+{
 
     for(int i = 0; i < 10; ++i)
     {
@@ -34,6 +35,41 @@ void  MainWindow::populateCheckBox(){
         item->setCheckState(Qt::Unchecked);
     }
 }
+
+void  MainWindow::populateNodeCheckBox(QString nodeType)
+{
+
+    for(int i = 0; i < 10; ++i)
+    {
+        ui->listWidgetDemand->addItem(nodeType + " " + QString::number(i));
+    }
+
+    QListWidgetItem* item = 0;
+
+    for(int i = 0; i < ui->listWidgetDemand->count(); ++i)
+    {
+        item = ui->listWidgetDemand->item(i);
+        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+        item->setCheckState(Qt::Unchecked);
+    }
+}
+
+void  MainWindow::populateSelectSerieErrorCheckBox(QString nodeType)
+{
+
+    ui->listWidgetDemandError->addItem("RESOP_DEMAND");
+    ui->listWidgetDemandError->addItem("RUNOFF_IN_NAT");
+
+    QListWidgetItem* item = 0;
+
+    for(int i = 0; i < ui->listWidgetDemandError->count(); ++i)
+    {
+        item = ui->listWidgetDemandError->item(i);
+        item->setFlags(item->flags() | Qt::ItemIsUserCheckable);
+        item->setCheckState(Qt::Unchecked);
+    }
+}
+
 
 void MainWindow::on_pushButton_clicked()
 {

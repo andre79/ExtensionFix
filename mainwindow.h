@@ -17,11 +17,12 @@ public:
     ~MainWindow();
 
     void populateCheckBox();
+    void populateNodeCheckBox(QString nodeType);
+
+    void populateSelectSerieErrorCheckBox(QString nodeType);
 private slots:
     void on_pushButton_clicked();
-
     void on_mainListWidget_currentItemChanged(QListWidgetItem *current, QListWidgetItem *previous);
-
     void on_mainListWidget_itemActivated(QListWidgetItem *item);
 
 private:
